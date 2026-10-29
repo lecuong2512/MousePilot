@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+
+# Build & Dist artifacts (Executable will be published in Releases)
+build/
+dist/
+packaging/payload.zip
+*.exe
+*.zip
+
+# Local environment & IDE
+.venv/
+env/
+.idea/
+.vscode/
+*.log
