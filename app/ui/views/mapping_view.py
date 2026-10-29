@@ -123,19 +123,19 @@ class MappingView(QWidget):
         main_layout.setContentsMargins(16, 16, 16, 16)
         main_layout.setSpacing(18)
 
-        # LEFT COLUMN: Interactive Mouse Visualizer
+        # LEFT COLUMN: Interactive 3D Mouse Visualizer
         left_card = QFrame()
         left_card.setProperty("class", "CardFrame")
-        left_card.setFixedWidth(320)
+        left_card.setFixedWidth(330)
         left_layout = QVBoxLayout(left_card)
         left_layout.setContentsMargins(14, 14, 14, 14)
-        left_layout.setSpacing(12)
+        left_layout.setSpacing(10)
 
-        lbl_vis_title = QLabel("Mô Hình Trực Quan")
+        lbl_vis_title = QLabel("Mô Hình Chuột 3D")
         lbl_vis_title.setProperty("class", "SectionHeader")
         left_layout.addWidget(lbl_vis_title)
 
-        lbl_vis_hint = QLabel("Nhấp chuột trực tiếp lên mô hình để chọn nút:")
+        lbl_vis_hint = QLabel("Nhấp chuột trực tiếp lên mô hình 3D để chọn nút:")
         lbl_vis_hint.setProperty("class", "SubtitleLabel")
         left_layout.addWidget(lbl_vis_hint)
 

@@ -158,6 +158,13 @@ class InstallerWindow(QWizard):
         self.setWindowTitle("Cài Đặt MousePilot — Trình Cài Đặt Hệ Thống")
         self.resize(620, 460)
         self.setWizardStyle(QWizard.WizardStyle.ModernStyle)
+
+        # Set 3D Icon
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app", "assets", "icon.ico")
+        if not os.path.exists(icon_path) and hasattr(sys, "_MEIPASS"):
+            icon_path = os.path.join(sys._MEIPASS, "icon.ico")
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
         self.setStyleSheet("""
             QWidget {
                 background-color: #1e1e24;
@@ -222,10 +229,23 @@ class InstallerWindow(QWizard):
         layout = QVBoxLayout(page)
         layout.setSpacing(14)
 
+        top_box = QHBoxLayout()
+        icon_png_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app", "assets", "icon.png")
+        if not os.path.exists(icon_png_path) and hasattr(sys, "_MEIPASS"):
+            icon_png_path = os.path.join(sys._MEIPASS, "icon.png")
+        if os.path.exists(icon_png_path):
+            lbl_ico = QLabel()
+            lbl_ico.setPixmap(QPixmap(icon_png_path).scaled(56, 56, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+            top_box.addWidget(lbl_ico)
+        lbl_brand = QLabel("<h2 style='margin:0; color:#ffffff;'>MousePilot 3D Edition</h2><span style='color:#a1a1aa;'>Bộ Tiện Ích Tùy Biến Nút Chuột Windows Toàn Diện</span>")
+        top_box.addWidget(lbl_brand, stretch=1)
+        layout.addLayout(top_box)
+
         lbl_desc = QLabel(
             "Trình cài đặt này sẽ cài đặt <b>MousePilot</b> thành một ứng dụng hệ thống trên máy tính của bạn.<br><br>"
             "MousePilot giúp bạn:<br>"
             "• Nhận diện chuột phần cứng (USB, Wireless 2.4G, Bluetooth, Touchpad).<br>"
+            "• Mô hình chuột 3D trực quan, click trực tiếp để gán nút.<br>"
             "• Tùy biến mọi nút chuột: Gán phím tắt, Media, Mở App, Macro.<br>"
             "• Chạy ngầm mượt mà 0-freeze, có khay hệ thống và phím tắt khẩn cấp an toàn.<br><br>"
             "Nhấn <b>Tiếp tục (Next)</b> để cấu hình thư mục và tùy chọn cài đặt."

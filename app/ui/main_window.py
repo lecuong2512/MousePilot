@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, Signal, QObject, QEvent
 from PySide6.QtGui import QIcon, QAction, QFont, QCloseEvent
+import os
 import ctypes
 from ctypes import wintypes
 
@@ -44,6 +45,11 @@ class MainWindow(QMainWindow):
         self.resize(1020, 680)
         self.setMinimumSize(920, 580)
 
+        # Set 3D App Icon
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets", "icon.ico")
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
+
         # Connect hook bridge
         self.signal_bridge.mouse_event_received.connect(self._handle_mouse_event_on_main_thread)
         self.hook_engine.set_event_listener(self._hook_event_callback)
@@ -76,8 +82,16 @@ class MainWindow(QMainWindow):
         top_layout.setContentsMargins(18, 0, 18, 0)
         top_layout.setSpacing(14)
 
-        # Logo / Brand
-        lbl_logo = QLabel("🖱️ MousePilot")
+        # Logo / Brand with 3D Icon
+        logo_icon_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets", "icon.png")
+        if os.path.exists(logo_icon_path):
+            from PySide6.QtGui import QPixmap
+            lbl_icon = QLabel()
+            pix = QPixmap(logo_icon_path).scaled(28, 28, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+            lbl_icon.setPixmap(pix)
+            top_layout.addWidget(lbl_icon)
+
+        lbl_logo = QLabel("MousePilot")
         lbl_logo.setStyleSheet("font-size: 17px; font-weight: 800; color: #ffffff;")
         top_layout.addWidget(lbl_logo)
 
