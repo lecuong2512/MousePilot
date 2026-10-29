@@ -364,9 +364,14 @@ class InstallerWindow(QWizard):
     def accept(self):
         if self.chk_launch.isChecked() and self.target_exe_path and os.path.exists(self.target_exe_path):
             try:
-                subprocess.Popen([self.target_exe_path])
+                # Use ShellExecuteW so Windows Shell launches the app as top-level user process (avoids parent-child SAC interception)
+                work_dir = os.path.dirname(self.target_exe_path)
+                ctypes.windll.shell32.ShellExecuteW(None, "open", self.target_exe_path, None, work_dir, 1)
             except Exception:
-                pass
+                try:
+                    os.startfile(self.target_exe_path)
+                except Exception:
+                    pass
         super().accept()
 
 def main():
